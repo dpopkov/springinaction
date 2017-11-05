@@ -11,26 +11,27 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes=CDPlayerConfig.class)
+//@ContextConfiguration
+@ContextConfiguration(classes=SoundSystemConfig.class)
 public class CDPlayerTest {
 
     @Rule
     public SystemOutRule log = new SystemOutRule().enableLog();
 
     @Autowired
-    private MediaPlayer player;
+    private MediaPlayer cdPlayer;
 
     @Autowired
-    private CompactDisc cd;
+    private CompactDisc compactDisc;
 
     @Test
     public void cdShouldNotBeNull() {
-        assertNotNull(cd);
+        assertNotNull(compactDisc);
     }
 
     @Test
     public void play() {
-        player.play();
+        cdPlayer.play();
         assertEquals("Playing Sgt. Pepper's Lonely Hearts Club Band"
                 + " by The Beatles" + System.lineSeparator(), log.getLog());
     }
