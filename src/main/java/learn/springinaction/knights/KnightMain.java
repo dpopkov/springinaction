@@ -8,5 +8,8 @@ public class KnightMain {
         ApplicationContext context = new AnnotationConfigApplicationContext(KnightConfig.class);
         Knight knight = context.getBean(Knight.class);
         knight.embarkOnQuest();
+
+        Knight knight1 = (Knight)context.getBean("knight");
+        System.out.println(knight == knight1);
     }
 }

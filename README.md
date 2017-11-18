@@ -1,5 +1,6 @@
 # Spring in Action
-My code for "Spring in Action", 4th Edition.
+Code for "Spring in Action", 4th Edition.
+It is slightly different from the book's source code.
 
 | Chapter | Branches |
 | ------ | ------- |
