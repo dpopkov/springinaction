@@ -1,6 +1,8 @@
 # Spring in Action
-My code for "Spring in Action", 4th Edition.
+Code for "Spring in Action", 4th Edition.
+It is slightly different from the book's source code.
 
 | Chapter | Branches |
 | ------ | ------- |
 | 1.1.1, 1.1.2 | knights, knights-xml-config, knights-java-config |
+| 2.3 | wiring-beans-with-java |
