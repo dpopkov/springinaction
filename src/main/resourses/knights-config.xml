@@ -3,16 +3,27 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-    <bean id="knight" class="learn.springinaction.knights.BraveKnight">
+    <bean id="knight" class="learn.springinaction.knights.DamselRescuingKnight">
         <constructor-arg ref="quest" />
+    </bean>
+
+    <bean id="knight2" class="learn.springinaction.knights.BraveKnight">
+        <constructor-arg ref="quest2" />
     </bean>
 
     <bean id="quest" class="learn.springinaction.knights.RescueDamselQuest">
         <constructor-arg value="#{T(System).out}" />
     </bean>
 
+    <bean id="quest2" class="learn.springinaction.knights.SlayDragonQuest">
+        <constructor-arg value="#{T(System).out}" />
+    </bean>
+
     <bean id="minstrel" class="learn.springinaction.knights.Minstrel">
         <constructor-arg value="#{T(System).out}" />
+    </bean>
+
+    <bean id="knight3" class="learn.springinaction.knights.NotKnight">
     </bean>
 
     <aop:config>
