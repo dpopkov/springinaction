@@ -8,3 +8,6 @@ It is different from the book.
 * To start run: `java -jar target/c01e01tc-0.0.1-SNAPSHOT.jar `
 * or: `mvn spring-boot:run`
 * To test run: `mvn test`
+
+## 2 - Developing web applications
+* Project: [c02e01sh](c02e01sh)
