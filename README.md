@@ -11,3 +11,9 @@ It is different from the book.
 
 ## 2 - Developing web applications
 * Project: [c02e01sh](c02e01sh)
+
+### Validating form input
+* Add dependency for `spring-boot-starter-validation`
+* Declare validation rules: `@NotNull, @NotBlank, @Pattern, @Digits, @CreditCardNumber`
+* Specify that validation should be performed in the controller methods: `@Valid`
+* Modify the form views to display validation errors

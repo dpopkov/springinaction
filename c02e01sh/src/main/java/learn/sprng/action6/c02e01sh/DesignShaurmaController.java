@@ -3,8 +3,10 @@ package learn.sprng.action6.c02e01sh;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,6 +17,8 @@ import static learn.sprng.action6.c02e01sh.Ingredient.Type;
 @RequestMapping("/design")
 @SessionAttributes("shaurmaOrder")  // <-- shaurmaOrder can span multiple requests
 public class DesignShaurmaController {
+
+    private static final String DESIGN_FORM_VIEW_NAME = "design";
 
     private final IngredientsStorage ingredientsStorage;
 
@@ -47,12 +51,16 @@ public class DesignShaurmaController {
 
     @GetMapping
     public String showDesignForm() {
-        return "design";
+        return DESIGN_FORM_VIEW_NAME;
     }
 
     @PostMapping
-    public String processDesignForm(Shaurma shaurma,
+    public String processDesignForm(@Valid Shaurma shaurma,
+                                    Errors errorsCapturer,
                                     @ModelAttribute ShaurmaOrder shaurmaOrder) {
+        if (errorsCapturer.hasErrors()) {
+            return DESIGN_FORM_VIEW_NAME;
+        }
         shaurmaOrder.addShaurma(shaurma);
         log.info("Processing shaurma: {}", shaurma);
         return "redirect:/orders/current";

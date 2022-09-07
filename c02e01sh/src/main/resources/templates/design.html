@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      lang="en"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Design</title>
@@ -11,6 +13,10 @@
 <img th:src="@{/images/shaurma.png}"/>
 
 <form method="POST" th:object="${shaurma}">
+
+    <span class="validationError"
+          th:if="${#fields.hasErrors('ingredients')}"
+          th:errors="*{ingredients}">Ingredient Error</span>
 
     <div class="grid">
         <div class="ingredient-group" id="wraps">
@@ -62,7 +68,10 @@
     <div>
         <h3>Name your shaurma creation:</h3>
         <input type="text" th:field="*{name}"/>
-
+        <span class="validationError"
+              th:if="${#fields.hasErrors('name')}"
+              th:errors="*{name}">Name Error</span>
+        <br/>
         <button>Submit Your Shaurma</button>
     </div>
 </form>
