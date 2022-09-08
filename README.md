@@ -17,3 +17,8 @@ It is different from the book.
 * Declare validation rules: `@NotNull, @NotBlank, @Pattern, @Digits, @CreditCardNumber`
 * Specify that validation should be performed in the controller methods: `@Valid`
 * Modify the form views to display validation errors
+
+## 3 - Working with data
+
+### Reading and writing data with JDBC
+* Project: [c03e01jdbc](c03e01jdbc)
