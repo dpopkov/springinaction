@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    generate-unique-name: false
+    name: test
+    username: sa
+    password:
+
+# Set init platform H2 for using schema-h2.sql and data-h2.sql scripts
+  sql:
+    init:
+      platform: h2

@@ -22,3 +22,26 @@ It is different from the book.
 
 ### Reading and writing data with JDBC
 * Project: [c03e01jdbc](c03e01jdbc)
+* Add dependency for `spring-boot-starter-jdbc`
+* Add dependency for `h2`
+* Configure data source properties:
+```yaml
+spring:
+  datasource:
+    generate-unique-name: false
+    name: test
+    username: sa
+    password:
+```
+* Set SQL init platform for schema-h2.sql and data-h2.sql scripts
+```yaml
+  sql:
+    init:
+      platform: h2
+```
+* Define a schema and preload data using schema-h2.sql and data-h2.sql scripts
+* Use `JdbcTemplate`:
+    * `query(sql, rowMapper)`
+    * `queryForObject(sql, rowMapper, args)`
+    * `update(sql, args)`
+    * `update(preparedStatementCreator, keyHolder)`
