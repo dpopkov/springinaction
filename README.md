@@ -48,3 +48,11 @@ spring:
 
 ### Working with Spring Data JDBC
 * Project: [c03e02datajdbc](c03e02datajdbc)
+* Add dependency for `spring-boot-starter-data-jdbc`
+* Add dependency for `h2`
+* Extend `CrudRepository<T, ID>`
+* Annotate the domain for persistence: 
+    * `@Id` - org.springframework.data.annotation.Id
+    * `@Table` - org.springframework.data.relational.core.mapping.Table
+    * `@Column` - org.springframework.data.relational.core.mapping.Column
+* Log SQL: `logging.level.sql: debug`

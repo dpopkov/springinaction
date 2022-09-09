@@ -1,1 +1,19 @@
+spring:
+  datasource:
+    generate-unique-name: false
+    name: test
+    username: sa
+    password:
+  h2:
+    console:
+      path: /h2-console
 
+  # Set init platform H2 for using schema-h2.sql script
+  sql:
+    init:
+      platform: h2
+
+# Logging of SQL queries
+logging:
+  level:
+    sql: debug
