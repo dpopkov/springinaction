@@ -1,1 +1,15 @@
+# Datasource
+spring:
+  datasource:
+    generate-unique-name: false
+    name: test
+    username: sa
+    password:
+  h2:
+    console:
+      path: /h2-console
 
+# Logging of SQL queries
+logging:
+  level:
+    sql: debug

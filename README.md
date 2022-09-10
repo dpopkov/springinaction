@@ -93,3 +93,11 @@ public ApplicationRunner dataLoader(IngredientRepository repo) {
 
 ### Persisting data with Spring Data JPA
 * Project: [c03e03datajpa](c03e03datajpa)
+* Add dependency for `spring-boot-starter-data-jpa`
+* Add dependency for `h2`
+* Annotate domain as entities: 
+    * `@Entity` - javax.persistence.Entity
+    * `@Id` - javax.persistence.Id
+    * `@GeneratedValue` - javax.persistence.GeneratedValue
+* Declare JPA repositories: `interface IngredientRepository extends CrudRepository<Ingredient, String>`
+* Use `@DataJpaTest` for testing
