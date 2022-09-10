@@ -61,7 +61,7 @@ spring:
 * Remove data.sql script.
 * Add beans for runners.
 
-### Using CommandLineRunner
+#### Using CommandLineRunner
 ```java
 @Bean
 public CommandLineRunner dataLoader(IngredientRepository repo) {
@@ -71,7 +71,7 @@ public CommandLineRunner dataLoader(IngredientRepository repo) {
 }
 ```
 
-### Using ApplicationRunner
+#### Using ApplicationRunner
 ```java
 @Bean
 public ApplicationRunner dataLoader(IngredientRepository repo) {
@@ -90,3 +90,6 @@ public ApplicationRunner dataLoader(IngredientRepository repo) {
     };
 }
 ```
+
+### Persisting data with Spring Data JPA
+* Project: [c03e03datajpa](c03e03datajpa)
