@@ -56,3 +56,37 @@ spring:
     * `@Table` - org.springframework.data.relational.core.mapping.Table
     * `@Column` - org.springframework.data.relational.core.mapping.Column
 * Log SQL: `logging.level.sql: debug`
+
+### Preloading data with CommandLineRunner or ApplicationRunner
+* Remove data.sql script.
+* Add beans for runners.
+
+### Using CommandLineRunner
+```java
+@Bean
+public CommandLineRunner dataLoader(IngredientRepository repo) {
+    return args -> {
+        // code loading data
+    };
+}
+```
+
+### Using ApplicationRunner
+```java
+@Bean
+public ApplicationRunner dataLoader(IngredientRepository repo) {
+    return args -> {
+        // code loading data
+    };
+}
+```
+* ApplicationRunner accepts an ApplicationArguments parameter that offers methods for accessing the arguments 
+as parsed components of the command line:
+```java
+public ApplicationRunner dataLoader(IngredientRepository repo) {
+    return args -> {
+        List<String> version = args.getOptionValues("version");
+        // ...
+    };
+}
+```

@@ -4,7 +4,7 @@ import lombok.Data;
 import org.springframework.data.relational.core.mapping.Table;
 
 @Data
-@Table("ingredient_ref")
+@Table
 public class IngredientRef {
 
     private final String ingredientId;

@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.List;
 
 @Data
-@Table("shaurma_order")
+@Table
 public class ShaurmaOrder {
     @Id
     private Long id;
