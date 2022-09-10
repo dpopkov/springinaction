@@ -101,3 +101,46 @@ public ApplicationRunner dataLoader(IngredientRepository repo) {
     * `@GeneratedValue` - javax.persistence.GeneratedValue
 * Declare JPA repositories: `interface IngredientRepository extends CrudRepository<Ingredient, String>`
 * Use `@DataJpaTest` for testing
+
+### Customizing repositories by writing custom queries
+* Repository methods are composed of a verb, an optional subject, the word `By` and a predicate
+* Custom method `findByDeliveryZip`:
+    * `find` - verb
+    * `DeliveryZip` - predicate
+    * subject isn't specified
+* Custom method `readOrdersByDeliveryZipAndPlacedAtBetween`:
+    * `read` - verb
+    * `By` - start of properties to match
+    * `DeliveryZipAndPlacedAtBetween` - predicate
+        * `DeliveryZip` - match DeliveryZip property
+        * And
+        * `PlacedAtBetween` - the value of PlacedAt must fall between the given values
+
+#### Spring Data method signatures can include any of the following operations:
+* implicit Equals and Between
+* IsAfter , After , IsGreaterThan , GreaterThan
+* IsGreaterThanEqual , GreaterThanEqual
+* IsBefore , Before , IsLessThan , LessThan
+* IsLessThanEqual , LessThanEqual
+* IsBetween , Between
+* IsNull , Null
+* IsNotNull , NotNull
+* IsIn , In
+* IsNotIn , NotIn
+* IsStartingWith , StartingWith , StartsWith
+* IsEndingWith , EndingWith , EndsWith
+* IsContaining , Containing , Contains
+* IsLike , Like
+* IsNotLike , NotLike
+* IsTrue , True
+* IsFalse , False
+* Is , Equals
+* IsNot , Not
+* IgnoringCase , IgnoresCase , AllIgnoringCase, AllIgnoresCase
+* OrderBy
+
+#### Using Query
+```java
+@Query("Order o where o.deliveryCity='Seattle'")
+List<Order> readOrdersDeliveredInSeattle();
+```
