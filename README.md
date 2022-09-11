@@ -144,3 +144,8 @@ public ApplicationRunner dataLoader(IngredientRepository repo) {
 @Query("Order o where o.deliveryCity='Seattle'")
 List<Order> readOrdersDeliveredInSeattle();
 ```
+
+## 4 - Working with non-relational data
+
+### Working with Cassandra repositories
+* Project: [c04e01cassandra](c04e01cassandra)
