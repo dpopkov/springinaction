@@ -3,6 +3,7 @@ package learn.sprng.action6.c04e01cassandra.web;
 import learn.sprng.action6.c04e01cassandra.Ingredient;
 import learn.sprng.action6.c04e01cassandra.Shaurma;
 import learn.sprng.action6.c04e01cassandra.ShaurmaOrder;
+import learn.sprng.action6.c04e01cassandra.ShaurmaUDT;
 import learn.sprng.action6.c04e01cassandra.data.IngredientRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -67,7 +68,7 @@ public class DesignShaurmaController {
         if (errorsCapturer.hasErrors()) {
             return DESIGN_FORM_VIEW_NAME;
         }
-        shaurmaOrder.addShaurma(shaurma);
+        shaurmaOrder.addShaurma(new ShaurmaUDT(shaurma.getName(), shaurma.getIngredients()));
         log.info("Added shaurma to order: {}", shaurma);
         return "redirect:/orders/current";
     }

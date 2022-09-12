@@ -1,7 +1,11 @@
 package learn.sprng.action6.c04e01cassandra;
 
+import com.datastax.oss.driver.api.core.uuid.Uuids;
 import lombok.Data;
 import org.hibernate.validator.constraints.CreditCardNumber;
+import org.springframework.data.cassandra.core.mapping.Column;
+import org.springframework.data.cassandra.core.mapping.PrimaryKey;
+import org.springframework.data.cassandra.core.mapping.Table;
 
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
@@ -9,10 +13,13 @@ import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Data
+@Table("orders")
 public class ShaurmaOrder {
-    private Long id;
+    @PrimaryKey
+    private UUID id = Uuids.timeBased();
     private Date placedAt = new Date();
     /* Delivery information */
     @NotBlank(message = "Delivery name is required")
@@ -35,9 +42,10 @@ public class ShaurmaOrder {
     @Digits(integer = 3, fraction = 0, message = "Invalid CVV")
     private String ccCVV;
 
-    private List<Shaurma> shaurmas = new ArrayList<>();
+    @Column("shaurmas")
+    private List<ShaurmaUDT> shaurmas = new ArrayList<>();
 
-    public void addShaurma(Shaurma shaurma) {
+    public void addShaurma(ShaurmaUDT shaurma) {
         shaurmas.add(shaurma);
     }
 }

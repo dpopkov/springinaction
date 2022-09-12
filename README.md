@@ -149,3 +149,33 @@ List<Order> readOrdersDeliveredInSeattle();
 
 ### Working with Cassandra repositories
 * Project: [c04e01cassandra](c04e01cassandra)
+* Add dependency for `spring-boot-starter-data-cassandra`
+* Download Docker image: `docker image pull cassandra:3.11.11`
+* Start a single-node cluster for development purposes using Docker:
+```shell script
+docker network create cassandra-net
+docker run --name my-cassandra --network cassandra-net -p 9042:9042 -d cassandra:3.11.11
+
+# Run a command in the 'my-cassandra' container
+docker run -it --network cassandra-net --rm cassandra:3.11.11 cqlsh my-cassandra
+# Create keyspace manually:
+cqlsh> create keyspace shaurmacloud
+   ... with replication={'class':'SimpleStrategy', 'replication_factor':1}
+   ... and durable_writes=true;
+```
+* Configure the `spring.data.cassandra.keyspace-name` property
+```yaml
+spring:
+  data:
+    cassandra:
+      keyspace-name: shaurmacloud
+      schema-action: recreate
+      local-datacenter: datacenter1
+```
+* Map domain types for Cassandra using annotations
+    * `@Table` - org.springframework.data.cassandra.core.mapping.Table
+    * `@PrimaryKey` - org.springframework.data.cassandra.core.mapping.PrimaryKey
+    * `@Colum` - org.springframework.data.cassandra.core.mapping.Column
+    * `@PrimaryKeyColumn` - org.springframework.data.cassandra.core.mapping.PrimaryKeyColumn
+* Create User Defined Types
+* Write repositories by extending Spring Data interfaces (CrudRepository)

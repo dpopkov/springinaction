@@ -1,1 +1,6 @@
-
+spring:
+  data:
+    cassandra:
+      keyspace-name: shaurmacloud
+      schema-action: recreate
+      local-datacenter: datacenter1

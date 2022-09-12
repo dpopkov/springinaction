@@ -1,8 +1,9 @@
 package learn.sprng.action6.c04e01cassandra.data;
 
 import learn.sprng.action6.c04e01cassandra.ShaurmaOrder;
+import org.springframework.data.repository.CrudRepository;
 
-public interface OrderRepository {
+import java.util.UUID;
 
-    ShaurmaOrder save(ShaurmaOrder order);
+public interface OrderRepository extends CrudRepository<ShaurmaOrder, UUID> {
 }
