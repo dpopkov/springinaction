@@ -179,3 +179,6 @@ spring:
     * `@PrimaryKeyColumn` - org.springframework.data.cassandra.core.mapping.PrimaryKeyColumn
 * Create User Defined Types
 * Write repositories by extending Spring Data interfaces (CrudRepository)
+
+### Working with MongoDB repositories
+* Project: [c04e02mongodb](c04e02mongodb)
