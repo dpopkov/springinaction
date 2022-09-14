@@ -2,6 +2,8 @@ package learn.sprng.action6.c04e02mongodb;
 
 import lombok.Data;
 import org.hibernate.validator.constraints.CreditCardNumber;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
@@ -11,8 +13,10 @@ import java.util.Date;
 import java.util.List;
 
 @Data
+@Document
 public class ShaurmaOrder {
-    private Long id;
+    @Id
+    private String id;
     private Date placedAt = new Date();
     /* Delivery information */
     @NotBlank(message = "Delivery name is required")

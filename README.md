@@ -182,3 +182,18 @@ spring:
 
 ### Working with MongoDB repositories
 * Project: [c04e02mongodb](c04e02mongodb)
+* Add dependency for `spring-boot-starter-data-mongodb`
+* Get Mongo server running using Docker: `docker run -p 27017:27017 -d mongo:4.4.9` (14 oct 2021)
+* Or use embedded Mongo:
+```xml
+<dependency>
+    <groupId>de.flapdoodle.embed</groupId>
+    <artifactId>de.flapdoodle.embed.mongo</artifactId>
+    <!-- <scope>test</scope> -->
+</dependency>
+```
+* Annotate domain objects for persistence as documents in MongoDB.
+    * `@Document` - org.springframework.data.mongodb.core.mapping.Document
+    * `@Id` - org.springframework.data.annotation.Id
+* Change the type of id properties to String for automatically assigning by MongoDB 
+* Write repository interfaces by extending Spring Data interfaces (CrudRepository)
