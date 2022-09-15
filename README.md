@@ -197,3 +197,6 @@ spring:
     * `@Id` - org.springframework.data.annotation.Id
 * Change the type of id properties to String for automatically assigning by MongoDB 
 * Write repository interfaces by extending Spring Data interfaces (CrudRepository)
+
+## 5 - Securing Spring
+* Project: [c05e01security](c05e01security)
