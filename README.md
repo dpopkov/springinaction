@@ -200,3 +200,28 @@ spring:
 
 ## 5 - Securing Spring
 * Project: [c05e01security](c05e01security)
+* Enable Spring Security: `spring-boot-starter-security`
+
+### Configuring Authentication
+* Declare a PasswordEncoder, which will be used when creating users and authenticating at login:
+```java
+@Configuration
+public class SecurityConfig {
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+}
+```
+* Declare a UserDetailsService bean
+
+#### In-memory user details service for a handful of users, none of which are likely to change
+```java
+@Bean
+public UserDetailsService userDetailsService(PasswordEncoder encoder) {
+    List<UserDetails> users = new ArrayList<>();
+    users.add(new User("james", encoder.encode("password"), List.of(new SimpleGrantedAuthority(ROLE_USER))));
+    users.add(new User("alice", encoder.encode("password"), List.of(new SimpleGrantedAuthority(ROLE_USER))));
+    return new InMemoryUserDetailsManager(users);
+}
+```
