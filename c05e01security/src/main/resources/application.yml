@@ -9,7 +9,8 @@ spring:
     console:
       path: /h2-console
   profiles:
-    active: in-memory-user-details
+#    active: in-memory-user-details
+    active: data-jpa-user-details
 
 # Logging of SQL queries
 logging:

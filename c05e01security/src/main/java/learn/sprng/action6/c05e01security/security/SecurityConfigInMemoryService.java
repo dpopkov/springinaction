@@ -1,5 +1,6 @@
 package learn.sprng.action6.c05e01security.security;
 
+import learn.sprng.action6.c05e01security.Profiles;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,12 +15,12 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import java.util.ArrayList;
 import java.util.List;
 
+import static learn.sprng.action6.c05e01security.security.SecurityConstants.*;
+
 @Slf4j
-@Profile("in-memory-user-details")
+@Profile(Profiles.USER_DETAILS_IN_MEMORY)
 @Configuration
 public class SecurityConfigInMemoryService {
-
-    private static final String ROLE_USER = "ROLE_USER";
 
     public SecurityConfigInMemoryService() {
         log.info("Init security config: {}", SecurityConfigInMemoryService.class.getName());

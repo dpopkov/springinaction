@@ -225,3 +225,37 @@ public UserDetailsService userDetailsService(PasswordEncoder encoder) {
     return new InMemoryUserDetailsManager(users);
 }
 ```
+
+#### Customizing user authentication
+* Create domain object and repository for user.
+* Create a custom user details service bean:
+```java
+@Bean
+public UserDetailsService userDetailsService(AppUserRepository appUserRepository) {
+    return username -> {
+        Optional<AppUser> byUsername = appUserRepository.findByUsername(username);
+        if (byUsername.isEmpty()) {
+            throw new UsernameNotFoundException("User '" + username + "' not found");
+        }
+        return byUsername.get();
+    };
+}
+```
+* Add registration controller and view.
+* Secure web requests:
+    * Secure requests:
+    ```java
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        return http
+            .authorizeRequests()
+                .antMatchers("/design", "/orders").hasRole("USER")
+                .antMatchers("/", "/**").permitAll()
+            .and()
+                .build();
+    }
+    ```
+    * Create custom login page.
+    * Spring Security has built-in CSRF protection:
+        * __Do not forget__ to include `th:action=@{context-relative-path}` into form element.
+        * then the hidden `_csrf` field will be rendered automatically.

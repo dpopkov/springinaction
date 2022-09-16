@@ -12,7 +12,7 @@
 <h1>Design your shaurma!</h1>
 <img th:src="@{/images/shaurma.png}"/>
 
-<form method="POST" th:object="${shaurma}">
+<form method="POST" th:object="${shaurma}" th:action="@{/design}">
 
     <span class="validationError"
           th:if="${#fields.hasErrors('ingredients')}"
