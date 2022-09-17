@@ -11,6 +11,10 @@ public class RegistrationForm {
     private String password;
 
     public AppUser toAppUser(PasswordEncoder passwordEncoder) {
-        return new AppUser(null, username, passwordEncoder.encode(password));
+        return new AppUser(null, username, passwordEncoder.encode(password), SecurityConstants.ROLE_USER);
+    }
+
+    public AppUser toAdminAppUser(PasswordEncoder passwordEncoder) {
+        return new AppUser(null, username, passwordEncoder.encode(password), SecurityConstants.ROLE_ADMIN);
     }
 }

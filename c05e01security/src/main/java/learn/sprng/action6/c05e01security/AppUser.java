@@ -14,8 +14,6 @@ import javax.persistence.Id;
 import java.util.Collection;
 import java.util.List;
 
-import static learn.sprng.action6.c05e01security.security.SecurityConstants.ROLE_USER;
-
 @Entity
 @Data
 @AllArgsConstructor
@@ -26,10 +24,11 @@ public class AppUser implements UserDetails {
     private Long id;
     private String username;
     private String password;
+    private String role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(ROLE_USER));
+        return List.of(new SimpleGrantedAuthority(role));
     }
 
     @Override

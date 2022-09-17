@@ -3,6 +3,7 @@ package learn.sprng.action6.c05e01security.security;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -10,6 +11,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Slf4j
 @Configuration
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
     private static final String H_2_CONSOLE = "/h2-console/**";
@@ -27,7 +29,8 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {    // Can ignore 'Could not autowire'
         return http
                 .authorizeRequests()
-                    .antMatchers("/design", "/orders").access("hasRole('USER')")
+                    .antMatchers("/admin/**").access("hasRole('ADMIN')")
+                    .antMatchers("/design", "/orders").access("hasAnyRole('USER', 'ADMIN')")
                     .antMatchers("/", "/**", H_2_CONSOLE).access("permitAll()")
 
                 .and()

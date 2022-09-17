@@ -1,10 +1,13 @@
 package learn.sprng.action6.c05e01security;
 
+import learn.sprng.action6.c05e01security.data.AppUserRepository;
 import learn.sprng.action6.c05e01security.data.IngredientRepository;
+import learn.sprng.action6.c05e01security.security.RegistrationForm;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import static learn.sprng.action6.c05e01security.Ingredient.Type;
 
@@ -16,7 +19,9 @@ public class C05e01securityApplication {
     }
 
     @Bean
-    public ApplicationRunner dataLoader(IngredientRepository repo) {
+    public ApplicationRunner dataLoader(IngredientRepository repo,
+                                        AppUserRepository appUserRepository,
+                                        PasswordEncoder passwordEncoder) {
         return args -> {
             if (repo.count() == 0) {
                 repo.save(new Ingredient("FLTO", "Flour Tortilla", Type.WRAP));
@@ -30,6 +35,10 @@ public class C05e01securityApplication {
                 repo.save(new Ingredient("SLSA", "Salsa", Type.SAUCE));
                 repo.save(new Ingredient("SRCR", "Sour Cream", Type.SAUCE));
             }
+            RegistrationForm admin = new RegistrationForm();
+            admin.setUsername("admin");
+            admin.setPassword("admin");
+            appUserRepository.save(admin.toAdminAppUser(passwordEncoder));
         };
     }
 }

@@ -259,3 +259,20 @@ public UserDetailsService userDetailsService(AppUserRepository appUserRepository
     * Spring Security has built-in CSRF protection:
         * __Do not forget__ to include `th:action=@{context-relative-path}` into form element.
         * then the hidden `_csrf` field will be rendered automatically.
+
+### Applying method level security
+* Apply `@EnableGlobalMethodSecurity` annotation:
+```java
+@Configuration
+@EnableGlobalMethodSecurity(prePostEnabled = true)
+public class SecurityConfig {
+    // ...
+}
+```
+* Apply `@PreAuthorize` annotation on method:
+```java
+@PreAuthorize("hasRole('ADMIN')")
+public void deleteAllOrders() {
+    orderRepository.deleteAll();
+}
+```
