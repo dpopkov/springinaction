@@ -42,6 +42,9 @@ public class ShaurmaOrder {
     @OneToMany(cascade = CascadeType.ALL)
     private List<Shaurma> shaurmas = new ArrayList<>();
 
+    @ManyToOne
+    private AppUser user;
+
     public void addShaurma(Shaurma shaurma) {
         shaurmas.add(shaurma);
     }

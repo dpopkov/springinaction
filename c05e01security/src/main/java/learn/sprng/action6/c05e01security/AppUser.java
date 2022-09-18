@@ -25,6 +25,11 @@ public class AppUser implements UserDetails {
     private String username;
     private String password;
     private String role;
+    /* Delivery information */
+    private String deliveryStreet;
+    private String deliveryCity;
+    private String deliveryState;
+    private String deliveryZip;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -276,3 +276,43 @@ public void deleteAllOrders() {
     orderRepository.deleteAll();
 }
 ```
+
+### Determine who the logged in user is
+* Associate specific Entities with application user Entity.
+* Identify who the associated user is using one of these ways:
+    * Inject a `java.security.Principal` object into the controller method.
+    ```java
+    @PostMapping
+    public String processOrder(@Valid Order order, Principal principal) {
+        User user = userRepository.findByUsername(principal.getName());
+        order.setUser(user);
+        orderRepository.save(order);  
+    }
+    ```
+    * Inject an `org.springframework.security.core.Authentication` object into the controller method.
+    ```java
+    @PostMapping
+    public String processOrder(@Valid Order order, Authentication authentication) {
+        User user = (User) authentication.getPrincipal();
+        order.setUser(user);
+        orderRepository.save(order);
+    }
+    ```
+    * Use `org.springframework.security.core.context.SecurityContextHolder` to get at the security context.
+        ```java
+        @PostMapping
+        public String processOrder(@Valid ShaurmaOrder order) {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            User user = (User) authentication.getPrincipal();
+            order.setUser(user);
+            orderRepository.save(order);
+        }
+        ```
+    * Inject an `@AuthenticationPrincipal` annotated method parameter (`org.springframework.security.core.annotation`)
+    ```java
+    @PostMapping
+    public String processOrder(@Valid ShaurmaOrder order, @AuthenticationPrincipal AppUser user) {
+        order.setUser(user);
+        orderRepository.save(order);
+    }
+    ```

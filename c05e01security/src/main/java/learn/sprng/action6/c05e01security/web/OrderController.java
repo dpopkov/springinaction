@@ -1,8 +1,10 @@
 package learn.sprng.action6.c05e01security.web;
 
+import learn.sprng.action6.c05e01security.AppUser;
 import learn.sprng.action6.c05e01security.ShaurmaOrder;
 import learn.sprng.action6.c05e01security.data.OrderRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,17 +30,25 @@ public class OrderController {
     }
 
     @GetMapping("/current")
-    public String showOrderForm() {
+    public String showOrderForm(ShaurmaOrder order,
+                                @AuthenticationPrincipal AppUser user) {
+        order.setDeliveryName(user.getUsername());
+        order.setDeliveryStreet(user.getDeliveryStreet());
+        order.setDeliveryCity(user.getDeliveryCity());
+        order.setDeliveryState(user.getDeliveryState());
+        order.setDeliveryZip(user.getDeliveryZip());
         return ORDER_FORM_VIEW_NAME;
     }
 
     @PostMapping
     public String processOrder(@Valid ShaurmaOrder order,
                                Errors errorsCapturer,
-                               SessionStatus sessionStatus) {
+                               SessionStatus sessionStatus,
+                               @AuthenticationPrincipal AppUser user) {
         if (errorsCapturer.hasErrors()) {
             return ORDER_FORM_VIEW_NAME;
         }
+        order.setUser(user);
         orderRepository.save(order);
         log.info("Order saved: {}", order);
         sessionStatus.setComplete();
