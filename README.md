@@ -464,3 +464,47 @@ shaurma:
 * Or set this property using standard methods:
     * Environment variable: `export SHAURMA_ORDERS_PAGESIZE=30`
     * Command line argument: `--shaurma.orders.pageSize=15`
+
+#### Defining configuration property holders
+`@ConfigurationProperties` are often placed on beans whose sole purpose in the application 
+is to be holders of configuration data. This keeps configuration specific details out 
+of the controllers and other application classes. 
+It also makes it easy to share common configuration properties among several
+beans that may make use of that information.
+
+* Create a separate class for holding configuration data.
+* Inject his holder into other beans that use this configuration data.
+```java
+@Data
+@Component
+@ConfigurationProperties(prefix = "shaurma.orders")
+public class OrderProps {
+    private int pageSize = 20;
+}
+```
+* This allows you to reuse the properties in the holder in any other bean that may need them.
+* For testing purposes, it’s easy to set configuration properties directly on a test-specific holder
+  and give it to the controller prior to the test.
+
+#### Adding metadata for custom configuration properties
+* Use quick fix of IDE or create file manually in resources/META-INF folder:
+    * additional-spring-configuration-metadata.json:
+    ```json
+    {
+      "properties": [
+        {
+          "name": "shaurma.orders.pageSize",
+          "type": "java.lang.Integer",
+          "description": "Number of orders in the list of recent orders of the current user."
+      }
+    ] }
+    ```
+* To use the Annotation Processor, include a dependency on `spring-boot-configuration-processor`:
+```xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-configuration-processor</artifactId>
+    <optional>true</optional>
+</dependency>
+```
+* After recompiling of the project you get hover-documentation and auto-completion help.

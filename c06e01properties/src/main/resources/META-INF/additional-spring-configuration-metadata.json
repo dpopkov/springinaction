@@ -3,6 +3,6 @@
     {
       "name": "shaurma.orders.pageSize",
       "type": "java.lang.Integer",
-      "description": "Number of orders in the list of recent orders of the current user."
+      "description": "Sets the maximum number of orders to display in the list of recent orders of the current user."
   }
 ] }

@@ -29,19 +29,16 @@ public class OrderController {
     private static final String ORDER_FORM_VIEW_NAME = "orderForm";
 
     private final OrderRepository orderRepository;
-    private int pageSize = 20;
+    private final OrderProps orderProps;
 
-    public OrderController(OrderRepository orderRepository) {
+    public OrderController(OrderRepository orderRepository, OrderProps orderProps) {
         this.orderRepository = orderRepository;
-    }
-
-    public void setPageSize(int pageSize) {
-        this.pageSize = pageSize;
+        this.orderProps = orderProps;
     }
 
     @GetMapping
     public String ordersForUser(@AuthenticationPrincipal AppUser user, Model model) {
-        Pageable pageable = PageRequest.of(0, pageSize);
+        Pageable pageable = PageRequest.of(0, orderProps.getPageSize());
         model.addAttribute("orders", orderRepository.findByUserOrderByPlacedAtDesc(user, pageable));
         return "orderList";
     }
