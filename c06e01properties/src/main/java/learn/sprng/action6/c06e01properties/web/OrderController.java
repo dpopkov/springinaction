@@ -4,8 +4,11 @@ import learn.sprng.action6.c06e01properties.AppUser;
 import learn.sprng.action6.c06e01properties.ShaurmaOrder;
 import learn.sprng.action6.c06e01properties.data.OrderRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,6 +30,13 @@ public class OrderController {
 
     public OrderController(OrderRepository orderRepository) {
         this.orderRepository = orderRepository;
+    }
+
+    @GetMapping
+    public String ordersForUser(@AuthenticationPrincipal AppUser user, Model model) {
+        Pageable pageable = PageRequest.of(0, 20);
+        model.addAttribute("orders", orderRepository.findByUserOrderByPlacedAtDesc(user, pageable));
+        return "orderList";
     }
 
     @GetMapping("/current")
