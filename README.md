@@ -447,3 +447,20 @@ to accept configurations from Spring's environment abstraction.
 To support property injection of configuration properties, Spring Boot provides 
 the `@ConfigurationProperties` annotation. When placed on any Spring bean, it specifies that
 the properties of that bean can be injected from properties in the Spring environment.
+
+* Use `@ConfigurationProperties` annotation:
+```java
+@ConfigurationProperties(prefix = "shaurma.orders")
+public class OrderController {
+    private int pageSize = 20;
+}
+```
+* Set this property in application.yml:
+```yaml
+shaurma:
+  orders:
+    pageSize: 10
+```
+* Or set this property using standard methods:
+    * Environment variable: `export SHAURMA_ORDERS_PAGESIZE=30`
+    * Command line argument: `--shaurma.orders.pageSize=15`

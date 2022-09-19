@@ -4,6 +4,7 @@ import learn.sprng.action6.c06e01properties.AppUser;
 import learn.sprng.action6.c06e01properties.ShaurmaOrder;
 import learn.sprng.action6.c06e01properties.data.OrderRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -22,19 +23,25 @@ import javax.validation.Valid;
 @Controller
 @RequestMapping("/orders")
 @SessionAttributes("shaurmaOrder")
+@ConfigurationProperties(prefix = "shaurma.orders")
 public class OrderController {
 
     private static final String ORDER_FORM_VIEW_NAME = "orderForm";
 
     private final OrderRepository orderRepository;
+    private int pageSize = 20;
 
     public OrderController(OrderRepository orderRepository) {
         this.orderRepository = orderRepository;
     }
 
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+    }
+
     @GetMapping
     public String ordersForUser(@AuthenticationPrincipal AppUser user, Model model) {
-        Pageable pageable = PageRequest.of(0, 20);
+        Pageable pageable = PageRequest.of(0, pageSize);
         model.addAttribute("orders", orderRepository.findByUserOrderByPlacedAtDesc(user, pageable));
         return "orderList";
     }

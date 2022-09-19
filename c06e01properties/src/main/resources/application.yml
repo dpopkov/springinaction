@@ -14,3 +14,7 @@ logging:
   level:
     sql: debug
 
+# Application configuration properties
+shaurma:
+  orders:
+    pageSize: 10
