@@ -440,3 +440,10 @@ greeting:
 
 ### Creating your own configuration properties
 * Project: [c06e01properties](c06e01properties)
+
+Configuration properties are nothing more than properties of beans that have been designated
+to accept configurations from Spring's environment abstraction.
+
+To support property injection of configuration properties, Spring Boot provides 
+the `@ConfigurationProperties` annotation. When placed on any Spring bean, it specifies that
+the properties of that bean can be injected from properties in the Spring environment.
