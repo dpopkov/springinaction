@@ -437,3 +437,6 @@ greeting:
 greeting:
   welcome: You are using ${spring.application.name}
 ```
+
+### Creating your own configuration properties
+* Project: [c06e01properties](c06e01properties)
