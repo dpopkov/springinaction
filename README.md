@@ -316,3 +316,124 @@ public void deleteAllOrders() {
         orderRepository.save(order);
     }
     ```
+
+## 6 - Working with configuration properties
+
+### Fine-tuning auto-configuration
+
+#### Understanding Spring's environment abstraction
+* application.properties
+    * server.port=9090
+* application.yml
+    * server:
+        * port: 9090
+* command line arguments
+    * `java -jar app.jar --server.port=9090`
+* operating system environment variable
+    * `export SERVER_PORT=9090`
+        * Spring interprets SERVER_PORT as server.port
+
+#### Configuring a data source
+* application.yml
+```yaml
+spring:
+  datasource:
+    url: jdbc:mysql://localhost/databasename
+    username: user
+    password: 123
+    driver-class-name: com.mysql.jdbc.Driver  # if there is a problem with auto-configuring
+```
+* Database initialization scripts
+```yaml
+spring:
+  datasource:
+    schema:
+    - order-schema.sql
+    - ingredient-schema.sql
+    - shaurma-schema.sql
+    - user-schema.sql
+  data:
+    - ingredients.sql
+```
+* Configure data source in the Java Naming and Directory Interface (JNDI)
+```yaml
+spring:
+  datasource:
+    jndi-name: java:/comp/env/jdbc/shaurmaDS
+``` 
+
+#### Configuring the embedded server
+* Start on a randomly chosen available port
+```yaml
+server:
+  port: 0
+```
+* Enable HTTPS on the embedded server
+    * create a keystore using `keytool` command line utility:
+        * `keytool -keystore mykeys.jks -genkey -alias tomcat -keyalg RSA`
+    * add to application.yml
+    ```yaml
+    server:
+      port: 8443
+      ssl:
+        key-store: file:///path/to/mykeys.jks
+        key-store-password: letmeplease
+        key-password: letmeplease
+    ```
+
+#### Configuring logging
+* By default, Spring Boot configures logging via Logback to write to the console at an INFO level.
+* For full control over the logging configuration, you can create a logback.xml file (in src/main/resources):
+```xml
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>
+                %d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+    <logger name="root" level="INFO"/>
+    <root level="INFO">
+        <appender-ref ref="STDOUT" />
+    </root>
+</configuration>
+```
+* Set logging levels:
+```yaml
+logging:
+  level:
+    root: WARN
+    org:
+      springframework:
+        security: DEBUG
+```
+* or
+```yaml
+logging:
+  level:
+    root: WARN
+    org.springframework.security: DEBUG
+```
+* to write the log entries to a file
+```yaml
+logging:
+  file:
+    path: /var/logs/
+    file: shaurma.log
+  level:
+    root: WARN
+    org.springframework.security: DEBUG
+```
+
+#### Using special property values
+* Derive values from other configuration properties:
+```yaml
+greeting:
+  welcome: ${spring.application.name}
+```
+* Embed the placeholder into other text:
+```yaml
+greeting:
+  welcome: You are using ${spring.application.name}
+```
